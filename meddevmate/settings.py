@@ -14,6 +14,9 @@ from pathlib import Path
 import dj_database_url 
 import os
 
+# Default to production environment (and disable debug mode) if the variable is not set
+ENVIRONMENT = os.getenv('DJANGO_ENV', 'production')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4%f6@rqs70@!-!9)zx0^xj+3&2nl@q(rua)hlw=(l$cfy&t_%-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (ENVIRONMENT == 'development')
 
 ALLOWED_HOSTS = []
 
