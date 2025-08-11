@@ -9,7 +9,7 @@ services:
     plan: free
     name: mysite
     runtime: python
-    buildCommand: './build.sh'
+    buildCommand: './MedDevMate/build.sh'
     startCommand: 'python -m gunicorn meddevmate.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
