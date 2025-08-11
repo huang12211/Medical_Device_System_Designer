@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import dj_database_url 
 import os
+from dotenv import load_dotenv
 
 # Default to production environment (and disable debug mode) if the variable is not set
+load_dotenv()
 ENVIRONMENT = os.getenv('DJANGO_ENV', 'production')
+print(f"My custom variable: {ENVIRONMENT}")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,17 +28,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4%f6@rqs70@!-!9)zx0^xj+3&2nl@q(rua)hlw=(l$cfy&t_%-'
+SECRET_KEY = os.getenv('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (ENVIRONMENT == 'development')
 
 ALLOWED_HOSTS = []
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'litrev.apps.LitrevConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

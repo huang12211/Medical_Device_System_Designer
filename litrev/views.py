@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the Litrev index.")
+    return render(request, 'litrev_pg/index.html')
