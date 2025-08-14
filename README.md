@@ -36,3 +36,13 @@ One Form that:
 
 ## Technical Stack
 We are using Django and Deploying on Render. 
+
+## Reminders when deploying locally:
+1. make sure that your PostgreSQL server is running:
+> pgrep -l postgres
+
+if it is not running, then run:
+> brew services start postgresql
+
+once running, access teh PostgreSQL command line:
+> psql -U postgres

@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 # Default to production environment (and disable debug mode) if the variable is not set
 load_dotenv()
 ENVIRONMENT = os.getenv('DJANGO_ENV', 'production')
-print(f"My custom variable: {ENVIRONMENT}")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,7 +88,7 @@ WSGI_APPLICATION = 'meddevmate.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgresql://postgres:postgres@localhost:5432/mysitedb',
         conn_max_age=600
     )
 }
