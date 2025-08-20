@@ -8,7 +8,6 @@ tailwindcss
 litrev/.DS_Store
 litrev/__pycache__/
 litrev/static/.DS_Store
-litrev/static/css/output.css
 litrev/images/.DS_Store
 litrev/migrations
 meddevmate/.DS_Store
