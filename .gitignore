@@ -1,3 +1,12 @@
 django-venv
 .env
 meddevmate.env
+staticfiles
+db.sqlite3
+tailwindcss
+meddevmate/__pycache__
+litrev/__pycache__
+litrev/migrations
+
+
+
