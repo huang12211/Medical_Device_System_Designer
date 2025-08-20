@@ -1,12 +1,18 @@
+.DS_Store
 django-venv
 .env
 meddevmate.env
 staticfiles
 db.sqlite3
 tailwindcss
-meddevmate/__pycache__
-litrev/__pycache__
+litrev/.DS_Store
+litrev/__pycache__/
+litrev/static/.DS_Store
+litrev/static/css/output.css
+litrev/images/.DS_Store
 litrev/migrations
+meddevmate/.DS_Store
+meddevmate/__pycache__/
 
 
 

@@ -1,0 +1,50 @@
+<!doctype html>
+{% load static %} <!--The purpose of this is to use the static files-->
+<html lang="en">
+<head>
+    <meta charset = "UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" type="text/css"/>
+</head> 
+
+<body>
+<header class="container">
+    <nav>
+        <div class="h-14 flex flex-row justify-between gap-4">
+            <div class="-mx-4 place-self-center overflow-clip">
+                <img class="h-12 max-w-none" src="{% static 'images/logo/logo_header_150x50.png' %}" alt="logo">
+            </div>
+            <div class="px-4 grid items-center md:grid-cols-3 md:gap-4 md:items-end md:pb-1">
+                <div class="hidden md:block">
+                    <a href="./litrev/">Literature Reviewer</a>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#">Complaint Analyzer</a>
+                </div>
+                <div class="hidden md:block">
+                    <a href="#">Maude Reviewer</a>
+                </div>
+                <div class="size-8 flex-none md:hidden">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+<main class="container">
+    <h1>{% block page_name %}{% endblock %}</h1>
+    {% block content %}{% endblock %}
+</main>
+
+<footer className="container border-t border-gray-300 bg-slate-800 py-8 text-center text-xs text-white md:text-sm">
+    © Copyright 2025 Elaine Huang made with love and tons of coffee.
+</footer>
+</body>
+</html>

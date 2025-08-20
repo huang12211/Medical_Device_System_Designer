@@ -1,0 +1,24 @@
+<!doctype html>
+{% load static %} <!--The purpose of this is to use the static files-->
+<html lang="en">
+<head>
+    <meta charset = "UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>This is Session #{{session.session_numb}}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" type="text/css"/>
+</head>
+
+<body>
+<main class="container">
+<div class="row text-center justify-content-center">
+    <div class="m-auto bg-cyan-100">
+        <h1>This is Session #{{session.session_numb}}</h1>
+    </div>
+</div>
+</main>
+</body>
+
+</html>
+
+
