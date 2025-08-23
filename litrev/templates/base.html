@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/logo/favicon_64x64.png' %}">
     <link rel="stylesheet" href="{% static 'css/output.css' %}" type="text/css"/>
 </head> 
 
@@ -16,9 +17,9 @@
             <div class="-mx-4 place-self-center overflow-clip">
                 <img class="h-12 max-w-none" src="{% static 'images/logo/logo_header_150x50.png' %}" alt="logo">
             </div>
-            <div class="px-4 grid items-center md:grid-cols-3 md:gap-4 md:items-end md:pb-1">
+            <div class="px-4 grid items-center md:px-0 md:grid-cols-3 md:gap-4 md:items-end md:pb-1">
                 <div class="hidden md:block">
-                    <a href="./litrev/">Literature Reviewer</a>
+                    <a href="#">Literature Reviewer</a>
                 </div>
                 <div class="hidden md:block">
                     <a href="#">Complaint Analyzer</a>

@@ -4,5 +4,48 @@
 {% block page_name %}Literature Review AI Agent{% endblock %}
 
 {% block content %}
-<h2>Filter Out Irrelevant Articles for Session #{{session.session_numb}}</h2>
+<h2>Filter Out Irrelevant Articles</h2>
+<div class="my-4 py-4 bg-slate-100">
+    <!-- Inputs to the Session -->
+    <h3 class="mx-4">Define the following:</h3>
+    <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-2 md:items-center mb-4">
+            <label class="text-left md:text-right" for="pubmed_csv">Upload Pubmed csv:</label>
+            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="pubmed_csv" name="pubmed_csv" required/>
+            <label class="text-left md:text-right" for="focus">Focus Subject/Technology:</label>
+            <input class="border mb-6 md:mb-0 md:col-span-2" type="text" id="focus" name="focus" required/>
+            <label class="text-left md:self-start md:text-right " for="incl-exclu-criteria">Inclusion/Exclusion Criteria:</label>
+            <textarea class="border mb-6 md:mb-0 md:col-span-2" rows="10" name="incl-exclu-criteria" id="incl-exclu-criteria" required></textarea>
+        </div>
+        <input class="text-[#0964b0] bg-white border border-gray-300 px-6 py-2 rounded-md hover:bg-[#f3f4f6] duration-200" type="submit" value="Submit"/>
+    </form>
+
+    <!-- Inclusion/Exclusion Secion -->
+    <!-- <h3 class="mx-4">Inclusion / Exclusion Criteria:</h3>
+    <form>
+        {% csrf_token %}
+        <div class="mx-auto w-8/10">
+            <label class="hidden" for="incl-exclu-criteria">Includsion/Exclusion Criteria</label>
+            <textarea class="w-full border" rows="10" name="incl-exclu-criteria" id="incl-exclu-criteria" required></textarea>
+            <div class="place-self-center">
+                <input class="text-[#0964b0] bg-white border border-gray-300 px-6 py-2 rounded-md hover:bg-[#f3f4f6] duration-200" type="submit" value="Submit"/>
+            </div>
+        </div>
+    </form> -->
+</div>
+<div class="my-4 pt-4 pb-8 bg-slate-100">
+    <!-- Results Section -->
+    <h3 class="mx-4">Results:</h3>
+    <div class = "mx-4 grid grid-cols-3 gap-2 items-center">
+        <p class="col-span-2">Download Excel Sheet listing all Articles that Remain After Applying the Inclusion & Exclusion Criteria:</p>
+        <button class="download">Download</button>
+        <p class="col-span-2">Download PDFs of all Relevant Articles that have Free Access:</p>
+        <button class="download">Download</button>
+    </div>
+</div>
+
+<div class="place-self-center mt-10 mb-20">
+    <button class="px-4 py-2 border rounded-md border-gray-300 bg-white hover:scale-110 hover:duration-200 hover:bg-blue-600 hover:text-white">Start a New Session</button>
+</div>
 {% endblock %}

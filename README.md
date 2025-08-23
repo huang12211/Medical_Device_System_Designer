@@ -31,7 +31,7 @@ One Form that:
         - focus of the literature review (type of tech being compared to conventional surgery)
     - outputs:
         - Excel spreadsheet with lit review summary along with extra columns containing LLM details that should be reviewed by a human
-        - aip file of all pdfs, (marked up by LLM?)
+        - a zip file of all pdfs, (marked up by LLM?)
 
 
 ## Technical Stack
@@ -48,8 +48,12 @@ if it is not running, then run:
 once running, access the PostgreSQL command line:
 > psql -U postgres
 
-To start the server locally with live TailwindCSS updates, in one terminal, run the following to start the tailwind watcher:
+To start live TailwindCSS updates, in one terminal, run the following to start the tailwind watcher:
 > python meddevmate/tailwind_watcher.py
 
 Simultaneously in a separate terminal, run the following to launch the website:
 > python manage.py runserver
+
+## Reminders when deploying to production:
+Make sure that the TailwindCSS output.css file is up to date with the latest CSS changes? 
+>> python meddevmate/tailwind_watcher.py
