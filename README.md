@@ -43,17 +43,24 @@ TailwindCSS version 4.1.12
 > pgrep -l postgres
 
 if it is not running, then run:
-> brew services start postgresql
+> brew services start postgresql@17
 
 once running, access the PostgreSQL command line:
 > psql -U postgres
 
-To start live TailwindCSS updates, in one terminal, run the following to start the tailwind watcher:
+2. Make sure teh PostgreSQL database is up to date with the lastest changes:
+>python manage.py makemigrations
+>python manage.py migrate
+
+3. You're ready to launch!
+3.1. To start live TailwindCSS updates, in one terminal, run the following to start the tailwind watcher:
 > python meddevmate/tailwind_watcher.py
 
-Simultaneously in a separate terminal, run the following to launch the website:
+3.2. Simultaneously in a separate terminal, run the following to launch the website:
 > python manage.py runserver
 
+3.3 To investigate the state of the Database, don't forget to visit: http://127.0.0.1:8000/admin/
+
 ## Reminders when deploying to production:
-Make sure that the TailwindCSS output.css file is up to date with the latest CSS changes? 
+Make sure that the TailwindCSS output.css file is up to date with the latest CSS changes before pushing to remote
 >> python meddevmate/tailwind_watcher.py

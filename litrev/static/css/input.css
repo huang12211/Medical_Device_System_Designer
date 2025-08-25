@@ -55,9 +55,6 @@
   main{
     max-width: 768px;
   }
-  footer{
-    max-width: 768px;
-  }
 }
 
 /* lg */
@@ -66,9 +63,6 @@
     max-width: 1024px;
   }
   main{
-    max-width: 1024px;
-  }
-  footer{
     max-width: 1024px;
   }
 }
@@ -81,9 +75,6 @@
   main{
     max-width: 1280px;
   }
-  footer{
-    max-width: 1280px;
-  }
 }
 /* 2xl */
 @media (min-width: 1536px){
@@ -91,9 +82,6 @@
     max-width: 1536px;
   }
   main{
-    max-width: 1536px;
-  }
-  footer{
     max-width: 1536px;
   }
 }

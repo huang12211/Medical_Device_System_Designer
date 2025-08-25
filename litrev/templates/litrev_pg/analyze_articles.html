@@ -8,17 +8,18 @@
 <div class="my-4 py-4 bg-slate-100">
     <!-- Inputs to the Session -->
     <h3 class="mx-4">Upload:</h3>
-    <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST">
+    <!-- <form class="mx-auto py-4 w-7/8 text-center" action="create/" method="POST"> -->
+    <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-2 md:items-center mb-4">
             <label class="text-left md:text-right" for="gemini_api_key">Google's Gemini API Key:</label>
             <input class="border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="gemini_api_key" name="gemini_api_key" placeholder="Optional: Will limit use of Gemini if not provided"/>
             <label class="text-left md:text-right" for="focus">Subject/Technology Focus:</label>
             <input class="border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="focus" name="focus" placeholder="Technology being compared to Conventional Surgery" required/>
-            <label class="text-left md:text-right" for="rel_art_csv">Excel Containing the List of All Relevant Articles:</label>
-            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_csv" name="rel_art_csv" required/>
+            <label class="text-left md:text-right" for="rel_art_xlsx">Excel Containing the List of All Relevant Articles:</label>
+            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_xlsx" name="rel_art_xlsx" accept=".xlsx" required/>
             <label class="text-left md:text-right" for="rel_art_pdfs_zip">Zip file of All PDFs of Relevant Articles:</label>
-            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip" required/>
+            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip"/>
         </div>
         <input class="text-[#0964b0] bg-white border border-gray-300 px-6 py-2 rounded-md hover:bg-[#f3f4f6] duration-200" type="submit" value="Submit"/>
     </form>
