@@ -8,7 +8,7 @@
 <div class="my-4 py-4 bg-slate-100">
     <!-- Inputs to the Session -->
     <h3 class="mx-4">Uploaded:</h3>
-    <form class="mx-auto py-4 w-7/8 text-center" action="litrev:create_analyze_session" method="POST">
+    <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-2 md:items-center mb-4">
             <label class="text-left md:text-right" for="gemini_api_key">Google's Gemini API Key:</label>
@@ -18,7 +18,7 @@
             <label class="text-left md:text-right md:self-start" for="rel_art_xlsx">Uploaded Excel of Relevant Articles:</label>
             <div class="place-self-center mb-6 md:mb-0 md:col-span-2">
                 <p class="mb-2 opacity-40">{{session_rel_art_xlsx}}</p>
-                <input class="" type="file" id="rel_art_xlsx" name="rel_art_xlsx" accept=".xlsx" required>
+                <input class="" type="file" id="rel_art_xlsx" name="rel_art_xlsx" accept=".xlsx">
             </div>
             <label class="text-left md:text-right" for="rel_art_pdfs_zip">Zip file of All PDFs of Relevant Articles:</label>
             <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip">
