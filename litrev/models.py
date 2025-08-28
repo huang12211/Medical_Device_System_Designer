@@ -5,9 +5,10 @@ class SearchSession(models.Model):
     gemini_api_key = models.CharField()
     focus = models.CharField()
     # search_input_csv = #TO DO# 
-    filtered_search_xlsx = models.FileField() #contains the xlsx itself
+    filtered_search_xlsx = models.FileField(upload_to="uploads/") #contains the path to the xlsx itself
+    filtered_pdfs_zip = models.FileField(upload_to="uploads/") #contains the path to the .zip itself
     # missing_pdfs_xlsx = # To Do
-    # lit_rev_summary_xlsx = # To Do
+    # lit_rev_summary_xlsx = models.CharField() #contains path to the .xlsx file that is made available to the user to download
     def __int__(self):
         return self.pk
 

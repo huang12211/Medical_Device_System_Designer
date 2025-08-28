@@ -12,18 +12,21 @@
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-3 md:gap-2 md:items-center mb-4">
             <label class="text-left md:text-right" for="gemini_api_key">Google's Gemini API Key:</label>
-            <input class="border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="gemini_api_key" name="gemini_api_key" value="{{session_api_key}}">
+            <input class="opacity-40 border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="gemini_api_key" name="gemini_api_key" value="{{session_api_key}}" readonly>
             <label class="text-left md:text-right" for="focus">Subject/Technology Focus:</label>
-            <input class="border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="focus" name="focus" value="{{session_focus}}" required>
-            <label class="text-left md:text-right md:self-start" for="rel_art_xlsx">Uploaded Excel of Relevant Articles:</label>
+            <input class="opacity-40 border p-1 mb-6 md:mb-0 md:col-span-2" type="text" id="focus" name="focus" value="{{session_focus}}" readonly>
+            <p class="text-left md:text-right md:self-start" for="rel_art_xlsx">Uploaded Excel of Relevant Articles:</p>
             <div class="place-self-center mb-6 md:mb-0 md:col-span-2">
                 <p class="mb-2 opacity-40">{{session_rel_art_xlsx}}</p>
-                <input class="" type="file" id="rel_art_xlsx" name="rel_art_xlsx" accept=".xlsx">
+                <!-- <input class="" type="file" id="rel_art_xlsx" name="rel_art_xlsx" accept=".xlsx"> -->
             </div>
-            <label class="text-left md:text-right" for="rel_art_pdfs_zip">Zip file of All PDFs of Relevant Articles:</label>
-            <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip">
+            <p class="text-left md:text-right" for="rel_art_pdfs_zip">Zip file of All PDFs of Relevant Articles:</p>
+            <div class="place-self-center mb-6 md:mb-0 md:col-span-2">
+                <p class="mb-2 opacity-40">{{session_rel_art_pdfs}}</p>
+                <!-- <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip" accept=".zip"> -->
+            </div>
         </div>
-        <input class="text-[#0964b0] bg-white border border-gray-300 px-6 py-2 rounded-md hover:bg-[#f3f4f6] duration-200" type="submit" value="Submit">
+        <input class="opacity-40 text-[#0964b0] border border-gray-300 px-6 py-2 rounded-md bg-[#f3f4f6]" type="submit" value="Submit" disabled>
     </form>
 </div>
 

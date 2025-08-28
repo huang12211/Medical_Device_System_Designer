@@ -14,7 +14,8 @@ meddevmate/.DS_Store
 meddevmate/__pycache__/
 .input
 debug.log
-*.xlsx
-
+uploads/
+outputs/
+extracted_pdfs/
 
 
