@@ -67,7 +67,7 @@ def create_analyze_session(request):
 
                 #Processing the data should occur here; Move the logic here;
                 # While the data is being processed, the processing wheel will appear. (what if the process is interrrupted mid-process?)
-                return HttpResponseRedirect(f"/litrev/analyze-articles/processing/{new_analyze_session.pk}/")
+                return HttpResponseRedirect(f"/litrev/analyze-articles/{new_analyze_session.pk}/")
             
         elif "new_session" in request.POST:
             return render(request, 'litrev_pg/analyze_articles.html')
@@ -165,7 +165,6 @@ async def launch_lit_rev_summary_generation(request, analyze_session_id):
                 s.finished_analyzing = True
                 try:
                     await sync_to_async(s.save)()
-                    print("updated Database with completed lit rev summary")
                 except Exception as e:
                     error_message = str(e)
                     return JsonResponse({'status': 'error', 'message': error_message}, status=400)
@@ -176,7 +175,6 @@ async def launch_lit_rev_summary_generation(request, analyze_session_id):
                     error_message = "You've exceeded the use of Gemini 2.5 Flash quota for the day."
                 return JsonResponse({'status': 'error', 'message': error_message}, status=400)
         
-        print("got to end of processing")
         return JsonResponse({'status': 'success', 'message': 'Literature Review Summary Generation has been completed'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

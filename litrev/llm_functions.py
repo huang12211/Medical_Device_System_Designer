@@ -18,8 +18,8 @@ from asgiref.sync import async_to_sync, sync_to_async
 from .models import SearchSession
 from .file_manipulations import load_input_rel_articles_xlsx, unzip_zip_files, get_all_file_paths
 
-# llm_model = "gemini-2.5-flash"
-llm_model = "gemini-2.5-flash-lite"
+llm_model = "gemini-2.5-flash" #preferred
+# llm_model = "gemini-2.5-flash-lite"
 rate_per_minute = 10
 
 def initialize_check_rate():

@@ -24,10 +24,10 @@ urlpatterns = [
     #   - Zip file of All PDFs of Relevant Articles
     path("analyze-articles/", views.create_analyze_session, name = "create_analyze_articles"),
 
-    #ex: ../litrev/analyze-articles/processing/10
+    #ex: ../litrev/analyze-articles/10
     # Displays the input data that was submitted for the session and allows them to download the associated results
     # Allows the user to modify the data that was submitted for the session
-    path("analyze-articles/processing/<int:analyze_session_id>/", views.processing_analyze_session, name="processing_analyze_session"),
+    path("analyze-articles/<int:analyze_session_id>/", views.processing_analyze_session, name="processing_analyze_session"),
 
     #ex: ../litrev/analyze-articles/launch-lit-rev-summary-generation/10
     path("analyze-articles/launch-lit-rev-summary-generation/<int:analyze_session_id>/", views.launch_lit_rev_summary_generation, name = "launch_lit_rev_summary_generation"),
