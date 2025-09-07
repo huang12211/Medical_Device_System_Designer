@@ -12,7 +12,7 @@ litrev/images/.DS_Store
 litrev/migrations
 meddevmate/.DS_Store
 meddevmate/__pycache__/
-.input
+input/
 debug.log
 uploads/
 outputs/

@@ -1,6 +1,43 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Literature Review - Analyze Relevant Articles{% endblock %}
+{% block scripts %} 
+<script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make an AJAX POST request when the page loads
+        fetch('/litrev/analyze-articles/launch-lit-rev-summary-generation/{{session_id}}/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Include CSRF token if not using @csrf_exempt
+                // 'X-CSRFToken': '{{ csrf_token }}' 
+            },
+            body: JSON.stringify({session_id: '{{session_id}}' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(data['status']);
+            // Handle success or error based on the JSON response
+            if(data["status"] == "success"){
+                document.getElementById("download_lit_rev_summary_block").style.display = 'block';
+                document.getElementById("processing_lit_rev_summary_block").style.display = 'none';
+            }
+            else{
+                document.getElementById("processing_failed_block").style.display = 'block';
+                document.getElementById("processing_failed_error_content").innerHTML = data["message"];
+                document.getElementById("processing_lit_rev_summary_block").style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            console.log("Error is :", error);
+        });
+    });
+</script>
+{% endblock %}
+
 {% block page_name %}Literature Review AI Agent{% endblock %}
 
 {% block content %}
@@ -24,16 +61,16 @@
             <div class="place-self-center mb-6 md:mb-0 md:col-span-2">
                 <p class="mb-2 opacity-40">{{session_rel_art_pdfs}}</p>
                 <!-- <input class="place-self-center mb-6 md:mb-0 md:col-span-2" type="file" id="rel_art_pdfs_zip" name="rel_art_pdfs_zip" accept=".zip"> -->
-            </div>
+            </div>           
         </div>
-        <input class="opacity-40 text-[#0964b0] border border-gray-300 px-6 py-2 rounded-md bg-[#f3f4f6]" type="submit" value="Submit" disabled>
+        <input class="opacity-40 text-[#0964b0] border border-gray-300 px-6 py-2 rounded-md bg-[#f3f4f6]" type="submit" name="submit" value="Submit" disabled>
     </form>
 </div>
 
 <div class="my-4 pt-4 pb-8 bg-slate-100">
     <!-- Results Section -->
     <h3 class="mx-4">Results:</h3>
-    <div class = "mx-4 flex flex-col gap-2 justify-center">
+    <div id="download_lit_rev_summary_block" class = "hidden mx-4 flex flex-col gap-2 justify-center">
         <div class="mx-auto">
             <p>Download the Literature Review Summary which identifies the following for each article:</p>
             <ul class="ml-8 list-disc list-outside">
@@ -48,11 +85,28 @@
                 <li>Gemini's confidence in the hazards, harms, and complications that it reported (Made available for Human Judgement)</li>
             </ul>
         </div>
-        <button class="download">Download</button>
+        <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST">
+            {% csrf_token %}
+            <input class="download {%if session_error != 'None' %} disable {% endif %}" type="submit" name="download" value="Download"/>
+        </form>
     </div>
+    <div id="processing_failed_block" class = "hidden mx-4 flex flex-col justify-center text-red-700">
+        <p id="processing_failed_error_content" class="text-center">{{session_error}}</p>
+    </div>
+    <div id="processing_lit_rev_summary_block" class = "mx-4 flex flex-col justify-center text-[#0964b0]">
+        <div class="mx-auto w-1/8">
+            <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+            <svg class="animate-spin stroke-current fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M272 112C272 85.5 293.5 64 320 64C346.5 64 368 85.5 368 112C368 138.5 346.5 160 320 160C293.5 160 272 138.5 272 112zM272 528C272 501.5 293.5 480 320 480C346.5 480 368 501.5 368 528C368 554.5 346.5 576 320 576C293.5 576 272 554.5 272 528zM112 272C138.5 272 160 293.5 160 320C160 346.5 138.5 368 112 368C85.5 368 64 346.5 64 320C64 293.5 85.5 272 112 272zM480 320C480 293.5 501.5 272 528 272C554.5 272 576 293.5 576 320C576 346.5 554.5 368 528 368C501.5 368 480 346.5 480 320zM139 433.1C157.8 414.3 188.1 414.3 206.9 433.1C225.7 451.9 225.7 482.2 206.9 501C188.1 519.8 157.8 519.8 139 501C120.2 482.2 120.2 451.9 139 433.1zM139 139C157.8 120.2 188.1 120.2 206.9 139C225.7 157.8 225.7 188.1 206.9 206.9C188.1 225.7 157.8 225.7 139 206.9C120.2 188.1 120.2 157.8 139 139zM501 433.1C519.8 451.9 519.8 482.2 501 501C482.2 519.8 451.9 519.8 433.1 501C414.3 482.2 414.3 451.9 433.1 433.1C451.9 414.3 482.2 414.3 501 433.1z"/></svg>
+        </div>
+        <p class="text-center"> Processing data, please wait...</p>
+    </div>
+
 </div>
 
-<div class="place-self-center mt-10 mb-20">
-    <button class="px-4 py-2 border rounded-md border-gray-300 bg-white hover:scale-110 hover:duration-200 hover:bg-blue-600 hover:text-white">Start a New Session</button>
+<div class="mt-10 mb-20">
+    <form class="mx-auto py-4 w-7/8 text-center" action="" method="POST">
+        {% csrf_token %}
+        <input class="px-4 py-2 border rounded-md border-gray-300 bg-white hover:scale-110 hover:duration-200 hover:bg-blue-600 hover:text-white" type="submit" name="new_session" value="Start a New Session"/>
+    </form>
 </div>
 {% endblock %}
