@@ -56,10 +56,18 @@ once running, access the PostgreSQL command line:
 3.1. To start live TailwindCSS updates, in one terminal, run the following to start the tailwind watcher:
 > python meddevmate/tailwind_watcher.py
 
-3.2. Simultaneously in a separate terminal, run the following to launch the website:
-> python manage.py runserver
+3.2. Optionally if using Celery, in a separate terminal, run the following to start the message broker:
+https://realpython.com/asynchronous-tasks-with-django-and-celery/#integrate-celery-with-django
+> redis-server 
+In another separate terminal, run:
+> celery -A meddevmate worker -l info
 
-3.3 To investigate the state of the Database, don't forget to visit: http://127.0.0.1:8000/admin/
+3.3. Simultaneously in a separate terminal, run the following to launch the website:
+>python -m gunicorn meddevmate.asgi:application -k uvicorn.workers.UvicornWorker --reload
+> or
+> python manage.py runserver 
+
+3.4 To investigate the state of the Database, don't forget to visit: http://127.0.0.1:8000/admin/
 
 ## Reminders when deploying to production:
 Make sure that the TailwindCSS output.css file is up to date with the latest CSS changes before pushing to remote

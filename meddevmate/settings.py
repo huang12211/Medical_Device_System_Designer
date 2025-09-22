@@ -163,3 +163,21 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#####################################################
+# Celery                                            #
+#####################################################
+if DEBUG:
+    # set the celery broker url
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+
+    # set the celery result backend
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+else:
+    # set the production celery broker url
+    CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+
+    # set the production celery result backend
+    CELERY_RESULT_BACKEND = os.getenv("CELERY_BROKER_URL")
+
+

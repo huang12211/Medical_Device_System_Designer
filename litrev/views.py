@@ -9,14 +9,13 @@ import zipfile
 import pandas as pd
 from datetime import datetime, timedelta
 import time
-
-import asyncio
-from asgiref.sync import async_to_sync, sync_to_async
+from io import StringIO
 
 from .models import SearchSession, LitRevSummaryEntry
 from .forms import AnalyzeArticlesForm
 from .file_manipulations import load_input_rel_articles_xlsx, unzip_zip_files, get_all_file_paths
-from .llm_functions import initialize_check_rate, check_rate, initialize_llm, populate_literature_review_summary_dataframe
+from .llm_functions import initialize_check_rate, check_rate, initialize_llm
+from .tasks import test_celery, celery_populate_literature_review_summary_dataframe
 
 #For debuggin
 import logging
@@ -134,11 +133,11 @@ def processing_analyze_session(request, analyze_session_id):
 # TODO Add logic for urls that don't generate a new html template #
 ###################################################################
 @csrf_exempt # For simplicity, consider CSRF protection in production
-async def launch_lit_rev_summary_generation(request, analyze_session_id):
+def launch_lit_rev_summary_generation(request, analyze_session_id):
     """Handles the AJAX POST request."""
     if request.method == 'POST':
         # Process the data from request.POST or request.body (for JSON)
-        s = await sync_to_async(get_object_or_404)(SearchSession, pk=analyze_session_id)
+        s = get_object_or_404(SearchSession, pk=analyze_session_id)
 
         # Perform desired actions (e.g., save to database)
         if s.finished_analyzing == False:
@@ -151,20 +150,19 @@ async def launch_lit_rev_summary_generation(request, analyze_session_id):
             unzip_zip_files(zip_file_path, pdfs_extract_directory)
             all_pdfs = get_all_file_paths(pdfs_extract_directory)
 
-            #Check Rate to ensure we are not exceeding our rate limits
-            initialize_check_rate()
-
-            # Initialize Gemini = Chosen LLM 
-            initialize_llm(s.gemini_api_key)
-
-            #Create the Lit Rev Summary DF
+            #Create the Lit Rev Summary DF #
+            ################################
             output_file = './outputs/lit_rev_summary_' + str(analyze_session_id) + '.xlsx'
-            lit_rev_df, error_message = await populate_literature_review_summary_dataframe(pubmed_df, all_pdfs, s.focus)
+            # async_result = test_celery.delay()
+            pubmed_df_json = pubmed_df.to_json(orient='records')
+            async_result = celery_populate_literature_review_summary_dataframe.delay(s.gemini_api_key, pubmed_df_json, all_pdfs, s.focus)
+            lit_rev_df_json, error_message  = async_result.get()
+            lit_rev_df = pd.read_json(StringIO(lit_rev_df_json))
             if error_message == None:
                 lit_rev_df.to_excel(output_file)
                 s.finished_analyzing = True
                 try:
-                    await sync_to_async(s.save)()
+                    s.save()
                 except Exception as e:
                     error_message = str(e)
                     return JsonResponse({'status': 'error', 'message': error_message}, status=400)
